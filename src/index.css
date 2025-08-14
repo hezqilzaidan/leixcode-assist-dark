@@ -2,41 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Dark Theme Customer Support SaaS Design System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark Theme SaaS Colors */
+    --background: 0 0% 0%;                    /* Pure black #000000 */
+    --foreground: 0 0% 100%;                  /* Pure white #FFFFFF */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 10%;                         /* Dark gray for cards */
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 0% 100%;                     /* White primary */
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 0 0% 10%;                    /* Dark gray #1A1A1A */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 69%;             /* Light gray #B0B0B0 */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 0 0% 88%;                       /* Light gray hover #E0E0E0 */
+    --accent-foreground: 0 0% 0%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 0 0% 100%;                      /* White borders */
+    --input: 0 0% 8%;                         /* Dark input background */
+    --ring: 0 0% 100%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Chat specific colors */
+    --chat-user-bg: 0 0% 0%;                  /* Black user bubbles */
+    --chat-user-border: 0 0% 100%;            /* White border */
+    --chat-bot-bg: 0 0% 10%;                  /* Dark gray bot bubbles #1A1A1A */
+    --chat-input-bg: 0 0% 8%;                 /* Dark input */
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +111,44 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+  }
+
+  /* Chat Message Animations */
+  @keyframes messageSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes typingDots {
+    0%, 20% {
+      color: hsl(var(--muted-foreground));
+      text-shadow: 0.25em 0 0 transparent, 0.5em 0 0 transparent;
+    }
+    40% {
+      color: hsl(var(--foreground));
+      text-shadow: 0.25em 0 0 hsl(var(--muted-foreground)), 0.5em 0 0 transparent;
+    }
+    60% {
+      text-shadow: 0.25em 0 0 hsl(var(--foreground)), 0.5em 0 0 hsl(var(--muted-foreground));
+    }
+    80%, 100% {
+      text-shadow: 0.25em 0 0 hsl(var(--foreground)), 0.5em 0 0 hsl(var(--foreground));
+    }
+  }
+
+  .chat-message {
+    animation: messageSlideIn 0.3s ease-out;
+  }
+
+  .typing-indicator {
+    animation: typingDots 1.4s infinite;
   }
 }
